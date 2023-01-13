@@ -10,4 +10,3 @@ app.use(tokenValidator);
 app.listen(port, () => {
   console.log(`Gateway listening on port ${port}`);
 });
-console.log('this is a test');
