@@ -4,11 +4,6 @@ on:
   push:
     branches: 
       - main
-  workflow_run:
-    workflows: [Tests]
-    branches: [main]
-    types:
-      - completed
 
 jobs:
   deploy:
@@ -19,17 +14,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
       - name: Lint
         uses: stefanoeb/eslint-action@1.0.2
         with:
           files: src/
+
       - name: Test
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-      run: 
-        npm ci
-        npm test
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: 
+          npm ci
+          npm test
+
       - name: Push to server
         uses: appleboy/ssh-action@master
         with:
