@@ -10,3 +10,7 @@ app.use(tokenValidator);
 app.listen(port, () => {
   console.log(`Gateway listening on port ${port}`);
 });
+
+app.get('/test', (req, res) => {
+  res.status(200).json({message: "Hi from CI"});
+})
