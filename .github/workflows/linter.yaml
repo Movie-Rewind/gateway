@@ -10,6 +10,11 @@ on:
     branches: 
       - main
       - develop
+  workflow_run:
+    workflows: ["test"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   build:
