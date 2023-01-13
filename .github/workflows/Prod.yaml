@@ -6,28 +6,30 @@ on:
       - main
 
 jobs:
-  deploy:
+  lint: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: stefanoeb/eslint-action@1.0.2
+        with:
+          files: src/
+  test: 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Lint
-        uses: stefanoeb/eslint-action@1.0.2
-        with:
-          files: src/
-
-      - name: Test
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: 
-          npm ci
-          npm test
-
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test
+ deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
       - name: Push to server
         uses: appleboy/ssh-action@master
         with:
