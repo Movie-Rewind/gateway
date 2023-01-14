@@ -6,9 +6,9 @@ const port = process.env.PORT || 3000;
 
 
 app.listen(port, () => {
-  console.log(`Gateway listening on port ${port}`);
+	console.log(`Gateway listening on port ${port}`);
 });
 
 app.get('/test', (req, res) => {
-  res.status(200).json({message: "Hi from CI"});
-})
+	res.status(200).json({message: 'Hi from CI'});
+});

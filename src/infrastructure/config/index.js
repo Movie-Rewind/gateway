@@ -1,26 +1,26 @@
 const env = process.env.NODE_ENV;
 
 const run = {
-  server: {
-    port: 3000
-  },
-  movieRewind:{
-    signature: process.env.JWT_KEY || 'MySuperSecret',
-  }
-}
+	server: {
+		port: 3000,
+	},
+	movieRewind: {
+		signature: process.env.JWT_KEY || 'MySuperSecret',
+	},
+};
 
 const test = {
-  server: {
-    port: 3000
-  },
-  movieRewind:{
-    signature: 'MySuperSecret',
-  }
-}
+	server: {
+		port: 3000,
+	},
+	movieRewind: {
+		signature: 'MySuperSecret',
+	},
+};
 
 const config = {
-  run,
-  test
-}
+	run,
+	test,
+};
 
-module.exports = config[env]
+module.exports = config[env];

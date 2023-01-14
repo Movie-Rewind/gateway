@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=run nodemon -L --inspect=0.0.0.0 index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "eslint-fix": "eslint --fix -c .eslintrc.json .",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -18,6 +20,10 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "eslint": "^8.31.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^17.0.0",
     "nodemon": "^2.0.19"
   }
 }

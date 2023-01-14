@@ -8,11 +8,22 @@ on:
 jobs:
   lint: 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - uses: actions/checkout@v1
-      - uses: stefanoeb/eslint-action@1.0.2
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          files: src/
+          node-version: ${{ matrix.node-version }}
+      - name: copy npmrc
+        run: cd src && echo "${{secrets.NPMRC}}" > .npmrc
+    
+      - name: install dependencies
+        run: cd src && pwd && npm ci
+      - name: run lint
+        run: cd src && npm run lint
   test: 
     runs-on: ubuntu-latest
     needs: lint
@@ -25,10 +36,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: copy npmrc
+      run: cd src && echo "${{secrets.NPMRC}}" > .npmrc
     - name: install dependencies
-      run: npm ci
+      run: cd src && pwd && npm ci
     - name: run tests
-      run: npm test
+      run: cd src && npm run test
   deploy:
     runs-on: ubuntu-latest
     needs: test
